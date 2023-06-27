@@ -1,0 +1,4 @@
+Необходимые библиотеки:
+- requests
+- datetime
+- json
