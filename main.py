@@ -125,9 +125,8 @@ def progress_bar(progress, total, message):
 
 if __name__ == '__main__':
     token = input('Enter the Yandex token| Введите токен Яндекс>>>> ')
-    vktoken = input('Enter the VK token| Введите токен ВК>>>> ')
-    # token = ''  # введите ваш токен с Полигона Яндекс.Диска
-    # vktoken = ''  # введите ваш токен vk api
+
+    vktoken = 'vk1.a.8UfSCy_kjCybRdZfQwHnhkRvL9UaC57JLbaL8orzf8RHHC8qIDQMruEmycCsXSzN4fAobaCrgjHe7AQ7ayWXawzpM9FKgfgrR-icMLQ-FJof6ucZsKkiSZh--JG9a1wpcV2WjCuD4tNw_GnrhxPyw5-FrDMrPbK5YfjZrHgb7LiDD7g5DLmQsc9e1dNj4QUpTNw8OuZsb_8QLQSG_p36ew'
     vk_test = VK(vktoken)
     ya_disk = Yandex(token)
 
