@@ -100,15 +100,14 @@ class Yandex:
                 if upload_file_response.status_code == 201:
                     pass
                 else:
-                    print("Ошибка загрузки файла на Яндекс.Диск.")
+                    print("Error uploading a file to Yandex.Disk.| Ошибка загрузки файла на Яндекс.Диск.")
             else:
-                print("Ошибка получения ссылки для загрузки файла на Яндекс.Диск.")
+                print("Error receiving a link to upload a file to Yandex.Disk.| Ошибка получения ссылки для загрузки файла на Яндекс.Диск.")
         else:
-            print("Ошибка загрузки фотографии.")
+            print("Photo upload error.|Ошибка загрузки фотографии.")
 
 def ask_amount():
-    init_amount = input('Введите количество фотографий(по умолчанию 5), которые вы хотите скачать(! - Скачать '
-                        'все)>>>> ')
+    init_amount = input('Enter the number of photos (5 by default) that you want to download(! - Download all)| Введите количество фотографий(по умолчанию 5), которые вы хотите скачать(! - Скачать все)>>>> ')
     if init_amount == '!':
         all_amount = 'all'
         return all_amount
@@ -125,8 +124,8 @@ def progress_bar(progress, total, message):
     print(f'\r|{bar}| {percent:.2f}% {message}', end='\r')
 
 if __name__ == '__main__':
-    token = input('Введите токен Яндекс>>>> ')
-    vktoken = input('Введите токен ВК>>>> ')
+    token = input('Enter the Yandex token| Введите токен Яндекс>>>> ')
+    vktoken = input('Enter the VK token| Введите токен ВК>>>> ')
     # token = ''  # введите ваш токен с Полигона Яндекс.Диска
     # vktoken = ''  # введите ваш токен vk api
     vk_test = VK(vktoken)
@@ -136,11 +135,11 @@ if __name__ == '__main__':
     
 
 
-    id_ = input('Введите vk id>>>>')
+    id_ = input('Enter vk id| Введите vk id>>>>')
     amount = ask_amount()
     data = vk_test.get_photo_data(id_, amount)
     # print(data)
-    folder_name = input('Введите имя папки>>>> ')
+    folder_name = input('Enter the folder name| Введите имя папки>>>> ')
     ya_disk.create_folder(folder_name)
 
     json_data = []
@@ -153,9 +152,9 @@ if __name__ == '__main__':
         temp_dict['file_name'] = item['name']
         temp_dict['size'] = item['size']
         json_data.append(temp_dict)
-        progress_bar(index + 1, item_count, 'Загрузка фотографий...')
+        progress_bar(index + 1, item_count, 'loading...')
 
     with open('info.json', 'w', encoding='utf8') as file:
         json.dump(json_data, file, indent=1)
 
-    print(f'\nПрограмма выполнена!')
+    print(f'\nDone!')
