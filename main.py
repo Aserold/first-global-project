@@ -106,40 +106,42 @@ class Yandex:
         else:
             print("Ошибка загрузки фотографии.")
 
+def ask_amount():
+    init_amount = input('Введите количество фотографий(по умолчанию 5), которые вы хотите скачать(! - Скачать '
+                        'все)>>>> ')
+    if init_amount == '!':
+        all_amount = 'all'
+        return all_amount
+    try:
+        conv_amount = int(init_amount)
+    except ValueError:
+        conv_amount = 5
+    return conv_amount
+
+
+def progress_bar(progress, total, message):
+    percent = 100 * (progress / float(total))
+    bar = '█' * int(percent) + '-' * (100 - int(percent))
+    print(f'\r|{bar}| {percent:.2f}% {message}', end='\r')
 
 if __name__ == '__main__':
-    # token = input('Введите токен Яндекс>>>> ')
-    # vktoken = input('Введите токен ВК>>>> ')
-    token = ''  # введите ваш токен с Полигона Яндекс.Диска
-    vktoken = ''  # введите ваш токен vk api
+    token = input('Введите токен Яндекс>>>> ')
+    vktoken = input('Введите токен ВК>>>> ')
+    # token = ''  # введите ваш токен с Полигона Яндекс.Диска
+    # vktoken = ''  # введите ваш токен vk api
     vk_test = VK(vktoken)
     ya_disk = Yandex(token)
 
 
-    def ask_amount():
-        init_amount = input('Введите количество фотографий(по умолчанию 5), которые вы хотите скачать(! - Скачать '
-                            'все)>>>> ')
-        if init_amount == '!':
-            all_amount = 'all'
-            return all_amount
-        try:
-            conv_amount = int(init_amount)
-        except ValueError:
-            conv_amount = 5
-        return conv_amount
-
-
-    def progress_bar(progress, total, message):
-        percent = 100 * (progress / float(total))
-        bar = '█' * int(percent) + '-' * (100 - int(percent))
-        print(f'\r|{bar}| {percent:.2f}% {message}', end='\r')
+    
 
 
     id_ = input('Введите vk id>>>>')
     amount = ask_amount()
     data = vk_test.get_photo_data(id_, amount)
     # print(data)
-    ya_disk.create_folder('vk_pfp')
+    folder_name = input('Введите имя папки>>>> ')
+    ya_disk.create_folder(folder_name)
 
     json_data = []
 
@@ -147,7 +149,7 @@ if __name__ == '__main__':
         temp_dict = {}
         name = item['name']
         photo_url = item['photo_url']
-        ya_disk.upload_photo(photo_url, 'vk_pfp', name)
+        ya_disk.upload_photo(photo_url, folder_name, name)
         temp_dict['file_name'] = item['name']
         temp_dict['size'] = item['size']
         json_data.append(temp_dict)
